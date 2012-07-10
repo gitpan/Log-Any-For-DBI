@@ -1,0 +1,31 @@
+NAME
+    Log::Any::For::DBI - Add logging to DBI method calls, etc
+
+VERSION
+    version 0.03
+
+SYNOPSIS
+     use DBI;
+     use Log::Any::For::DBI;
+
+     # now all connect()'s, do()'s, prepare()'s are logged with Log::Any
+     my $dbh = DBI->connect("dbi:...", $user, $pass);
+     $dbh->do("INSERT INTO table VALUES (...)");
+
+SEE ALSO
+    Log::Any::For::Class
+
+    DBIx::Log4perl, one of the inspirations for this module. With due
+    respect to its author, I didn't like the approach of DBIx::Log4perl and
+    its intricate links to DBI's internals. I'm sure DBIx::Log4perl is good
+    at what it does, but currently I only need to log SQL statements.
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2012 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
