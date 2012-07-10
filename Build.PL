@@ -18,14 +18,14 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "Log-Any-For-DBI",
-  "dist_version" => "0.03",
+  "dist_version" => "0.04",
   "license" => "perl",
   "module_name" => "Log::Any::For::DBI",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
     "Log::Any" => 0,
-    "Log::Any::For::Class" => "0.04",
+    "Log::Any::For::Class" => "0.05",
     "perl" => "5.010000"
   },
   "script_files" => []

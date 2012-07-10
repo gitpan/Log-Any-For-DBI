@@ -16,9 +16,9 @@ meta-spec:
 name: Log-Any-For-DBI
 requires:
   Log::Any: 0
-  Log::Any::For::Class: 0.04
+  Log::Any::For::Class: 0.05
   perl: 5.010000
 resources:
   homepage: http://metacpan.org/release/Log-Any-For-DBI
   repository: http://github.com/sharyanto/perl-Log-Any-For-DBI
-version: 0.03
+version: 0.04

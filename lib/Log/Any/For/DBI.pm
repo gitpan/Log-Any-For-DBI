@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Log::Any '$log';
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 use Log::Any::For::Class qw(add_logging_to_class);
 use Scalar::Util qw(blessed);
@@ -71,7 +71,7 @@ Log::Any::For::DBI - Add logging to DBI method calls, etc
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
