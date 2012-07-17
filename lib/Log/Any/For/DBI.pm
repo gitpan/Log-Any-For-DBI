@@ -5,8 +5,9 @@ use strict;
 use warnings;
 use Log::Any '$log';
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
+use DBI;
 use Log::Any::For::Class qw(add_logging_to_class);
 use Scalar::Util qw(blessed);
 
@@ -26,17 +27,17 @@ sub import {
                 $margs->[2] = "********";
             }
 
-            $log->tracef("-> %s(%s)", $name, $margs);
+            $log->tracef("---> %s(%s)", $name, $margs);
         } else {
             if (@{$args->{result}}) {
-                $log->tracef("<- %s() = %s", $name, $args->{result});
+                $log->tracef("<--- %s() = %s", $name, $args->{result});
             } else {
-                $log->tracef("<- %s()", $name);
+                $log->tracef("<--- %s()", $name);
             }
         }
     };
 
-    # I put it in $doit in case we need to add more classes from inside $doit,
+    # I put it in $doit in case we need to add more classes from inside $logger,
     # e.g. DBD::*, etc.
     my $doit;
     $doit = sub {
@@ -71,7 +72,7 @@ Log::Any::For::DBI - Add logging to DBI method calls, etc
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -81,6 +82,20 @@ version 0.04
  # now all connect()'s, do()'s, prepare()'s are logged with Log::Any
  my $dbh = DBI->connect("dbi:...", $user, $pass);
  $dbh->do("INSERT INTO table VALUES (...)");
+
+Sample script and output:
+
+ % TRACE=1 perl -MLog::Any::App -MDBI -MLog::Any::For::DBI \
+   -e'$dbh=DBI->connect("dbi:SQLite:dbname=/tmp/tmp.db", "", "");
+   $dbh->do("CREATE TABLE IF NOT EXISTS t (i INTEGER)");'
+ [1] ---> DBI::connect(['dbi:SQLite:dbname=/tmp/tmp.db','','********'])
+ [5] <--- DBI::connect() = [bless( {}, 'DBI::db' )]
+ [5] ---> DBI::db::do(['CREATE TABLE IF NOT EXISTS t (i INTEGER)'])
+ [5] ---> DBI::db::prepare(['CREATE TABLE IF NOT EXISTS t (i INTEGER)',undef])
+ [5] <--- DBI::db::prepare() = [bless( {}, 'DBI::st' )]
+ [5] ---> DBI::st::execute([])
+ [5] <--- DBI::st::execute() = ['0E0']
+ [5] <--- DBI::db::do()
 
 =head1 SEE ALSO
 

@@ -1,5 +1,12 @@
 Revision history for Log-Any-For-DBI
 
+0.05     2012-07-17 (SHARYANTO)
+
+         - Load DBI, for convenience.
+
+         - Minor tweaks.
+
+
 0.04     2012-07-10 (SHARYANTO)
 
          No functional changes. Rebuild (forgot to update requirement version).
