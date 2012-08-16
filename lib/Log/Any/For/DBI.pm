@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Log::Any '$log';
 
-our $VERSION = '0.06'; # VERSION
+our $VERSION = '0.07'; # VERSION
 
 use DBI;
 use Log::Any::For::Class qw(add_logging_to_class);
@@ -17,7 +17,7 @@ sub _precall_logger {
     my $margs = $args->{args};
 
     # mask connect password
-    if ($name =~ /\A(DBI::connect\w*)\z/) {
+    if ($name =~ /\A(DBI(?:::db)?::connect\w*)\z/) {
         $margs->[3] = "********";
     }
 
@@ -42,12 +42,23 @@ sub import {
             classes => \@classes,
             precall_logger => \&_precall_logger,
             postcall_logger => \&_postcall_logger,
-            filter_methods =>
-                qr/\A(
-                       DBI::(connect|connect_cached)|
-                       DBI::db::(do|prepare|select\w+)|
-                       DBI::st::(execute|bind\w+)
-                   )\z/x,
+            filter_methods => sub {
+                local $_ = shift;
+                return unless
+                    /\A(
+                         DBI::\w+|
+                         DBI::db::\w+|
+                         DBI::st::\w+
+                     )\z/x;
+                return if
+                    /\A(
+                         (\w+::)+[_A-Z]\w+|
+                         DBI::(?:install|setup)\w+|
+                         DBI::db::clone|
+                         DBI::trace\w*
+                     )\z/x;
+                1;
+            },
         );
     };
 
@@ -67,7 +78,7 @@ Log::Any::For::DBI - Add logging to DBI method calls, etc
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 SYNOPSIS
 

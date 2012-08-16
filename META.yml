@@ -21,4 +21,4 @@ requires:
 resources:
   homepage: http://metacpan.org/release/Log-Any-For-DBI
   repository: http://github.com/sharyanto/perl-Log-Any-For-DBI
-version: 0.06
+version: 0.07
