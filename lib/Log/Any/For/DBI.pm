@@ -5,37 +5,32 @@ use strict;
 use warnings;
 use Log::Any '$log';
 
-our $VERSION = '0.05'; # VERSION
+our $VERSION = '0.06'; # VERSION
 
 use DBI;
 use Log::Any::For::Class qw(add_logging_to_class);
 use Scalar::Util qw(blessed);
 
+sub _precall_logger {
+    my $args = shift;
+    my $name = $args->{name};
+    my $margs = $args->{args};
+
+    # mask connect password
+    if ($name =~ /\A(DBI::connect\w*)\z/) {
+        $margs->[3] = "********";
+    }
+
+    Log::Any::For::Class::_default_precall_logger($args);
+}
+
+sub _postcall_logger {
+    my $args = shift;
+
+    Log::Any::For::Class::_default_postcall_logger($args);
+}
+
 sub import {
-    my $logger = sub {
-        my ($which, $args) = @_;
-        my $name = $args->{name};
-
-        if ($which eq 'precall') {
-            my $margs = $args->{args};
-
-            # exclude self or package
-            shift @$margs;
-
-            # mask connect password
-            if ($name =~ /\A(DBI::connect\w*)\z/) {
-                $margs->[2] = "********";
-            }
-
-            $log->tracef("---> %s(%s)", $name, $margs);
-        } else {
-            if (@{$args->{result}}) {
-                $log->tracef("<--- %s() = %s", $name, $args->{result});
-            } else {
-                $log->tracef("<--- %s()", $name);
-            }
-        }
-    };
 
     # I put it in $doit in case we need to add more classes from inside $logger,
     # e.g. DBD::*, etc.
@@ -45,8 +40,8 @@ sub import {
 
         add_logging_to_class(
             classes => \@classes,
-            precall_logger => sub { $logger->('precall', shift) },
-            postcall_logger => sub { $logger->('postcall', shift) },
+            precall_logger => \&_precall_logger,
+            postcall_logger => \&_postcall_logger,
             filter_methods =>
                 qr/\A(
                        DBI::(connect|connect_cached)|
@@ -72,7 +67,7 @@ Log::Any::For::DBI - Add logging to DBI method calls, etc
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 SYNOPSIS
 

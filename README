@@ -2,7 +2,7 @@ NAME
     Log::Any::For::DBI - Add logging to DBI method calls, etc
 
 VERSION
-    version 0.05
+    version 0.06
 
 SYNOPSIS
      use DBI;

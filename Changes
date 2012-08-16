@@ -1,5 +1,11 @@
 Revision history for Log-Any-For-DBI
 
+0.06     2012-08-16 (SHARYANTO)
+
+         Work better with newer Log::Any::For::Class (observe 'indent' and
+         'max_depth' logger args).
+
+
 0.05     2012-07-17 (SHARYANTO)
 
          - Load DBI, for convenience.

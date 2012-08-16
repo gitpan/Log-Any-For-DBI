@@ -28,13 +28,8 @@
          "requires" : {
             "DBI" : 0,
             "Log::Any" : 0,
-            "Log::Any::For::Class" : "0.05",
+            "Log::Any::For::Class" : "0.14",
             "perl" : "5.010000"
-         }
-      },
-      "test" : {
-         "requires" : {
-            "Test::More" : "0.96"
          }
       }
    },
@@ -45,6 +40,6 @@
          "url" : "http://github.com/sharyanto/perl-Log-Any-For-DBI"
       }
    },
-   "version" : "0.05"
+   "version" : "0.06"
 }
 
