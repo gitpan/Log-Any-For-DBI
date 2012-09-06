@@ -2,7 +2,7 @@ NAME
     Log::Any::For::DBI - Add logging to DBI method calls, etc
 
 VERSION
-    version 0.07
+    version 0.08
 
 SYNOPSIS
      use DBI;
@@ -25,6 +25,11 @@ SYNOPSIS
      [5] ---> DBI::st::execute([])
      [5] <--- DBI::st::execute() = ['0E0']
      [5] <--- DBI::db::do()
+
+    You can filter to log only certain methods by passing the method names
+    as import arguments, for example:
+
+     use Log::Any::For::DBI qw(prepare connect);
 
 SEE ALSO
     Log::Any::For::Class
