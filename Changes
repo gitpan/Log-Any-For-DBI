@@ -1,5 +1,11 @@
 Revision history for Log-Any-For-DBI
 
+0.09     2012-11-29 (SHARYANTO)
+
+         - Use Log::Any::For::Class 0.18 (which has caller_depth adjustment) to
+           correctly show caller location.
+
+
 0.08     2012-09-06 (SHARYANTO)
 
          - Allow logging only certain methods by passing them as import

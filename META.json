@@ -24,11 +24,16 @@
             "Module::Build" : "0.3601"
          }
       },
+      "develop" : {
+         "requires" : {
+            "Test::Rinci" : "0.01"
+         }
+      },
       "runtime" : {
          "requires" : {
             "DBI" : 0,
             "Log::Any" : 0,
-            "Log::Any::For::Class" : "0.14",
+            "Log::Any::For::Class" : "0.18",
             "perl" : "5.010000"
          }
       }
@@ -40,6 +45,6 @@
          "url" : "http://github.com/sharyanto/perl-Log-Any-For-DBI"
       }
    },
-   "version" : "0.08"
+   "version" : "0.09"
 }
 

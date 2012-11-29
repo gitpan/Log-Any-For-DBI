@@ -17,7 +17,7 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "Log-Any-For-DBI",
-  "dist_version" => "0.08",
+  "dist_version" => "0.09",
   "license" => "perl",
   "module_name" => "Log::Any::For::DBI",
   "recommends" => {},
@@ -25,7 +25,7 @@ my %module_build_args = (
   "requires" => {
     "DBI" => 0,
     "Log::Any" => 0,
-    "Log::Any::For::Class" => "0.14",
+    "Log::Any::For::Class" => "0.18",
     "perl" => "5.010000"
   },
   "script_files" => []

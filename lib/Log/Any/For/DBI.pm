@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Log::Any '$log';
 
-our $VERSION = '0.08'; # VERSION
+our $VERSION = '0.09'; # VERSION
 
 use DBI;
 use List::Util qw(first);
@@ -22,12 +22,14 @@ sub _precall_logger {
         $margs->[3] = "********";
     }
 
+    local $args->{logger_args}{precall_wrapper_depth} = 4;
     Log::Any::For::Class::_default_precall_logger($args);
 }
 
 sub _postcall_logger {
     my $args = shift;
 
+    local $args->{logger_args}{postcall_wrapper_depth} = 4;
     Log::Any::For::Class::_default_postcall_logger($args);
 }
 
@@ -83,7 +85,7 @@ Log::Any::For::DBI - Add logging to DBI method calls, etc
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 SYNOPSIS
 
